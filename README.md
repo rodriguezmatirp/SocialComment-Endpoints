@@ -29,8 +29,8 @@ Response : Created post_id
 Like/Dislike Post : 
 
 Request Type : PATCH
-Route : /post/<type>  #Type can be either like/dislike
-Params : Type
+Route : /post/:type  
+Params : Type (Like/Dislike)
 Request-Headers : Refresh token, Access token
 Request Body : PostId
 Response : Status, Message
@@ -46,7 +46,7 @@ Response : Status, Comment, PostId
 Get liked users on Post : 
 
 Request Type : GET
-Route : /post/liked-users/<post_id> 
+Route : /post/liked-users/:type
 Params : PostId
 Response : Dictionary of post_id with Liked user Details #Username, UserId
 
@@ -59,7 +59,7 @@ Response : Dictionary of post_id with Liked user Details #Username, UserId
 Get comments of user :
 
 Request Type : GET
-Route : /post/<user_id>
+Route : /post/:user_id
 Params : UserId
 Response : Dictionary of post_id's with Comment and Post Title by an User
 
