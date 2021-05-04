@@ -29,7 +29,7 @@ postRoute.post('/create', authenticate,async (req, res)=>{
 
 postRoute.patch('/:type', authenticate, async (req, res)=>{
     let post_id = req.body.post_id
-    let type = req.params.type
+    let type = req.params.type.toLowerCase()
 
     let data =  await Post.findById(post_id)
     if (!data){
@@ -111,14 +111,16 @@ postRoute.get('/liked-users/:post_id', async(req, res)=>{
             let user = await User.findById(x.userId)
             post_details.push({"user_id" : user._id, "username" : user.name})
         }
-        return res.status(200).send({post_id : post_details})
+        let response = {}
+        response[post_id] = post_details
+        return res.status(200).send(response)
     }catch (e){
         console.log(e)
         return res.status(404).send({"Error" : e})
     }
 })
 
-postRoute.get('/post-liked-users', async(req, res)=>{
+postRoute.get('/all-liked-users', async(req, res)=>{
     let post_details = []
     try{
         let posts = await Post.find()
