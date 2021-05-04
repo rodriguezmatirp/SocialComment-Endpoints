@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
+const createError = require("http-errors");
 
 const {userRoute} = require('./routes/usercontroller')
 const {postRoute} = require('./routes/postcontroller')
@@ -22,6 +23,9 @@ app.use(function(req, res, next) {
     );
 
     next();
+});
+app.use(function(req, res, next) {
+    next(createError(404));
 });
 app.use(bodyParser.urlencoded({extended: true}))
 app.use('/user', userRoute)
